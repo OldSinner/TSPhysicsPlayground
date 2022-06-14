@@ -14,7 +14,7 @@ export default class Context {
   public addObject(obj: IPhysicsObject): void {
     obj._id = this.idCursor;
     this.idCursor++;
-    obj.changeContext(this);
+    obj.setContext(this);
     if ("draw" in obj) {
       this.objects.push(obj);
     } else {

@@ -19,7 +19,7 @@ export default class Mouse implements IPhysicsObject {
 
     this._position = new P5.Vector(p5.mouseX, p5.mouseY);
   }
-  changeContext(context: Context): void {
+  setContext(context: Context): void {
     this._context = context;
   }
 }

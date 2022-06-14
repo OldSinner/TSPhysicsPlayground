@@ -12,7 +12,9 @@ const sketch = (p5: P5) => {
   p5.draw = () => {
     p5.background(0);
     p5.mouseClicked = () => {
-      var walker = new Walker(p5, p5.mouseX, p5.mouseY).setVelocityLimit(5);
+      var walker = new Walker(p5, p5.mouseX, p5.mouseY)
+        .setVelocityLimit(5)
+        .setMass(p5.random(1, 10));
       context.addObject(walker);
     };
     if (p5.keyIsDown(p5.UP_ARROW)) {

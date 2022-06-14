@@ -7,5 +7,5 @@ export default interface IPhysicsObject {
   _context: Context;
 
   update(): void;
-  changeContext(context: Context): void;
+  setContext(context: Context): void;
 }

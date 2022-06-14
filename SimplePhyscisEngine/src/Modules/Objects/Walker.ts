@@ -10,10 +10,13 @@ export default class Walker implements IPhysicsObject, IRigidbody {
   _position: P5.Vector;
   _velocity: P5.Vector;
   _acceleration: P5.Vector;
-  _mass: number;
+  _mass: number = 10;
   _context: Context;
   _velocityLimit: number;
   _isGravity: boolean = true;
+  _size: number = 2;
+  _isFriction: boolean = true;
+  _fritionMU: number = 0.01;
   //----------
 
   constructor(public _p5: P5, x: number, y: number) {
@@ -30,6 +33,7 @@ export default class Walker implements IPhysicsObject, IRigidbody {
   }
   applyPhyscis() {
     if (this._isGravity) this.applyGravity();
+    if (this._isFriction) this.applyFriction();
   }
 
   move() {
@@ -43,11 +47,11 @@ export default class Walker implements IPhysicsObject, IRigidbody {
   draw(): void {
     const p5 = this._p5;
     p5.stroke(p5.color(255, 255, 255));
-    p5.strokeWeight(5);
+    p5.strokeWeight(this._size * this._mass);
     p5.point(this._position.x, this._position.y);
   }
 
-  changeContext(context: Context): void {
+  setContext(context: Context): void {
     this._context = context;
   }
 
@@ -55,13 +59,34 @@ export default class Walker implements IPhysicsObject, IRigidbody {
     this._velocityLimit = limit;
     return this;
   }
+  setMass(mass: number): Walker {
+    this._mass = mass;
+    return this;
+  }
 
   applyForce(force: P5.Vector) {
-    this._acceleration.add(force);
+    let fc = p5.Vector.div(force, this._mass)! as Vector;
+    this._acceleration.add(fc);
   }
   applyGravity() {
-    console.log(this._context.getGravityValue());
-    this.applyForce(this._context.getGravityValue());
+    let gravity = this._context.getGravityValue();
+    gravity.mult(this._mass);
+    this.applyForce(gravity);
+  }
+  applyFriction() {
+    const p5 = this._p5;
+
+    let diff = p5.height - this._position.y;
+    console.log(diff);
+    if (diff < 1) {
+      // let friction = this._velocity.copy();
+      // friction.normalize();
+      // friction.mult(-1);
+      // friction.setMag(this._fritionMU * this._mass);
+
+      // this.applyForce(friction);
+      this._velocity.mult(0.95);
+    }
   }
   constraintCheck(): void {
     const p5 = this._p5;
@@ -69,6 +94,14 @@ export default class Walker implements IPhysicsObject, IRigidbody {
     if (this._position.y >= p5.height) {
       this._position.y = p5.height;
       this._velocity.y *= -1;
+    }
+    if (this._position.x >= p5.width) {
+      this._position.x = p5.width;
+      this._velocity.x *= -1;
+    }
+    if (this._position.x <= 0) {
+      this._position.x = 0;
+      this._velocity.x *= -1;
     }
   }
 }
