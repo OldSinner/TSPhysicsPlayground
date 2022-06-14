@@ -1,4 +1,4 @@
-import { FrictionTypes } from "../Enums/Forces/FrictionTypes";
+import { FrictionTypes } from "../Enums/Forces/RigidBodyTypes";
 import IPhysicsObject from "../Interfaces/IPhysicsObject";
 import IRigidbody from "../Interfaces/IRigidbody";
 

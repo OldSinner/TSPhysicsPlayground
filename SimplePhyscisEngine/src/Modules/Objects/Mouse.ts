@@ -1,5 +1,4 @@
 import Context from "../Context/Context";
-import IUpdatableObject from "../Interfaces/IUpdatableObject";
 import P5 from "p5";
 import IPhysicsObject from "../Interfaces/IPhysicsObject";
 
