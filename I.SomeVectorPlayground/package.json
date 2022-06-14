@@ -1,0 +1,20 @@
+{
+  "name": "i.somevectorplayground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/p5": "^1.4.2",
+    "p5": "^1.4.1"
+  },
+  "devDependencies": {
+    "parcel": "^2.6.0"
+  }
+}
