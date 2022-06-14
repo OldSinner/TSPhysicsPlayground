@@ -1,17 +1,19 @@
 import Context from "../Context/Context";
 import IUpdatableObject from "../Interfaces/IUpdatableObject";
 import P5 from "p5";
+import IPhysicsObject from "../Interfaces/IPhysicsObject";
 
-export default class Mouse implements IUpdatableObject {
+export default class Mouse implements IPhysicsObject {
+  _id: number;
   _position: P5.Vector;
   _context: Context;
-  id: number;
   /**
    *
    */
-  constructor(public _p5: P5, x: number, y: number) {
-    this._position = new P5.Vector(x, y);
+  constructor(public _p5: P5) {
+    this._position = new P5.Vector(_p5.mouseX, _p5.mouseY);
   }
+
   update(): void {
     const p5 = this._p5;
 

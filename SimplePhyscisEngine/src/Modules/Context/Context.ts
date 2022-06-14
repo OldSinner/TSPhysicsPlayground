@@ -1,34 +1,23 @@
-import IDrawableObject from "../Interfaces/IDrawableObject";
-import IUpdatableObject from "../Interfaces/IUpdatableObject";
+import IPhysicsObject from "../Interfaces/IPhysicsObject";
 
 export default class Context {
-  private drawableObjects: IDrawableObject[] = [];
-  private updatableObjects: IUpdatableObject[] = [];
+  private objects: IPhysicsObject[] = [];
   private idCursor: number = 0;
 
-  public addObject(obj: IDrawableObject | IUpdatableObject): void {
-    obj.id = this.idCursor;
+  public addObject(obj: IPhysicsObject): void {
+    obj._id = this.idCursor;
     this.idCursor++;
     obj.changeContext(this);
     if ("draw" in obj) {
-      this.drawableObjects.push(obj);
+      this.objects.push(obj);
     } else {
-      this.updatableObjects.push(obj);
+      this.objects.push(obj);
     }
   }
   public deleteObject(id: number) {
-    this.drawableObjects = this.drawableObjects.filter((obj) => obj.id !== id);
-    this.updatableObjects = this.updatableObjects.filter(
-      (obj) => obj.id !== id
-    );
+    this.objects = this.objects.filter((obj) => obj._id !== id);
   }
-
   update(): void {
-    this.drawableObjects.forEach((obj) => obj.update());
-    this.updatableObjects.forEach((obj) => obj.update());
-    this.draw();
-  }
-  private draw(): void {
-    this.drawableObjects.forEach((obj) => obj.draw());
+    this.objects.forEach((obj) => obj.update());
   }
 }

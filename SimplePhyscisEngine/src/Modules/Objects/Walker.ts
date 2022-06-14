@@ -1,27 +1,33 @@
 import P5 from "p5";
 import Context from "../Context/Context";
-import IDrawableObject from "../Interfaces/IDrawableObject";
-import IUpdatableObject from "../Interfaces/IUpdatableObject";
+import IPhysicsObject from "../Interfaces/IPhysicsObject";
+import IRigidbody from "../Interfaces/IRigidbody";
 import Mouse from "./Mouse";
 
-export default class Walker implements IDrawableObject {
+export default class Walker implements IPhysicsObject, IRigidbody {
+  _id: number;
   _position: P5.Vector;
-  _acceleration: P5.Vector;
   _velocity: P5.Vector;
-  _target: Mouse;
+  _acceleration: P5.Vector;
+  _mass: number;
+  _context: Context;
+  _velocityLimit: number;
+  //----------
+  _target: IPhysicsObject;
   _attractionForce: number;
-  _velocityLimit: number = 2;
-  id: number;
-  private _context: Context;
 
-  _color: number = 255;
   constructor(public _p5: P5, x: number, y: number) {
     this._position = new P5.Vector(x, y);
-    this._velocity = P5.Vector.random2D();
+    this._acceleration = new P5.Vector(0, 0);
+    this._velocity = new P5.Vector(0, 0);
   }
+
   update() {
     this.move();
+
+    this.draw();
   }
+
   move() {
     const p5 = this._p5;
 
@@ -32,7 +38,6 @@ export default class Walker implements IDrawableObject {
       );
     }
     this._acceleration.setMag(this._attractionForce);
-    console.log(this._target._position);
 
     this._velocity.limit(this._velocityLimit);
     this._velocity.add(this._acceleration);
@@ -42,7 +47,7 @@ export default class Walker implements IDrawableObject {
 
   draw(): void {
     const p5 = this._p5;
-    p5.stroke(p5.color(255, this._color, 255));
+    p5.stroke(p5.color(255, 255, 255));
     p5.strokeWeight(5);
     p5.point(this._position.x, this._position.y);
   }
@@ -50,8 +55,8 @@ export default class Walker implements IDrawableObject {
   changeContext(context: Context): void {
     this._context = context;
   }
-  setTarget(mouse: Mouse): Walker {
-    this._target = mouse;
+  setTarget(obj: IPhysicsObject): Walker {
+    this._target = obj;
     return this;
   }
   setAttractionForce(force: number): Walker {
