@@ -1,13 +1,4 @@
-import p5 from "p5";
-import P5, { Vector } from "p5";
-import Context from "../Context/Context";
-import IPhysicsObject from "../Interfaces/IPhysicsObject";
-import IRigidbody from "../Interfaces/IRigidbody";
-import DragForceSystem from "../PhysicsSystems/DragForceSystem";
-import FrictionSystem from "../PhysicsSystems/FrictionSystem";
-import GravitySystem from "../PhysicsSystems/GravitySystem";
 import PhysicObject from "./Abstracts/PhysicObject";
-import Mouse from "./Mouse";
 
 export default class Walker extends PhysicObject {
   _size: number = 3;

@@ -28,16 +28,6 @@ export default abstract class PhysicObject
     this._gravitySystem = new GravitySystem(this);
   }
 
-  setVelocityLimit(limit: number) {
-    this._velocityLimit = limit;
-    return this;
-  }
-
-  applyForce(force: Vector) {
-    let fc = P5.Vector.div(force, this._mass)! as Vector;
-    this._acceleration.add(fc);
-  }
-
   update() {
     this.applyPhyscis();
     this.move();
@@ -57,7 +47,6 @@ export default abstract class PhysicObject
       }
     }
   }
-  draw() {}
   move() {
     this._velocity.limit(this._velocityLimit);
     this._velocity.add(this._acceleration);
@@ -65,12 +54,23 @@ export default abstract class PhysicObject
 
     this._acceleration.set(0, 0);
   }
+  draw() {}
+  // RigidBody
+  applyForce(force: Vector) {
+    let fc = P5.Vector.div(force, this._mass)! as Vector;
+    this._acceleration.add(fc);
+  }
+  //set get
   setContext(context: Context): PhysicObject {
     this._context = context;
     return this;
   }
   setMass(mass: number): PhysicObject {
     this._mass = mass;
+    return this;
+  }
+  setVelocityLimit(limit: number) {
+    this._velocityLimit = limit;
     return this;
   }
 }
