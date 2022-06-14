@@ -1,4 +1,5 @@
-import P5 from "p5";
+import p5 from "p5";
+import P5, { Vector } from "p5";
 import Context from "../Context/Context";
 import IPhysicsObject from "../Interfaces/IPhysicsObject";
 import IRigidbody from "../Interfaces/IRigidbody";
@@ -12,9 +13,8 @@ export default class Walker implements IPhysicsObject, IRigidbody {
   _mass: number;
   _context: Context;
   _velocityLimit: number;
+  _isGravity: boolean = true;
   //----------
-  _target: IPhysicsObject;
-  _attractionForce: number;
 
   constructor(public _p5: P5, x: number, y: number) {
     this._position = new P5.Vector(x, y);
@@ -23,26 +23,21 @@ export default class Walker implements IPhysicsObject, IRigidbody {
   }
 
   update() {
+    this.applyPhyscis();
     this.move();
-
     this.draw();
+    this.constraintCheck();
+  }
+  applyPhyscis() {
+    if (this._isGravity) this.applyGravity();
   }
 
   move() {
-    const p5 = this._p5;
-
-    if (this._target) {
-      this._acceleration = P5.Vector.sub(
-        this._target._position,
-        this._position
-      );
-    }
-    this._acceleration.setMag(this._attractionForce);
-
     this._velocity.limit(this._velocityLimit);
     this._velocity.add(this._acceleration);
-
     this._position.add(this._velocity);
+
+    this._acceleration.set(0, 0);
   }
 
   draw(): void {
@@ -55,16 +50,25 @@ export default class Walker implements IPhysicsObject, IRigidbody {
   changeContext(context: Context): void {
     this._context = context;
   }
-  setTarget(obj: IPhysicsObject): Walker {
-    this._target = obj;
-    return this;
-  }
-  setAttractionForce(force: number): Walker {
-    this._attractionForce = force;
-    return this;
-  }
+
   setVelocityLimit(limit: number): Walker {
     this._velocityLimit = limit;
     return this;
+  }
+
+  applyForce(force: P5.Vector) {
+    this._acceleration.add(force);
+  }
+  applyGravity() {
+    console.log(this._context.getGravityValue());
+    this.applyForce(this._context.getGravityValue());
+  }
+  constraintCheck(): void {
+    const p5 = this._p5;
+
+    if (this._position.y >= p5.height) {
+      this._position.y = p5.height;
+      this._velocity.y *= -1;
+    }
   }
 }
