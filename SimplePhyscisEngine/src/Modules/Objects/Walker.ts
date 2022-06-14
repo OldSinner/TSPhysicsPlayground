@@ -3,6 +3,7 @@ import P5, { Vector } from "p5";
 import Context from "../Context/Context";
 import IPhysicsObject from "../Interfaces/IPhysicsObject";
 import IRigidbody from "../Interfaces/IRigidbody";
+import FrictionSystem from "../PhysicsSystems/FrictionSystem";
 import Mouse from "./Mouse";
 
 export default class Walker implements IPhysicsObject, IRigidbody {
@@ -15,14 +16,15 @@ export default class Walker implements IPhysicsObject, IRigidbody {
   _velocityLimit: number;
   _isGravity: boolean = true;
   _size: number = 2;
-  _isFriction: boolean = true;
-  _fritionMU: number = 0.01;
+  //----------
+  _frictionSystem: FrictionSystem;
   //----------
 
   constructor(public _p5: P5, x: number, y: number) {
     this._position = new P5.Vector(x, y);
     this._acceleration = new P5.Vector(0, 0);
     this._velocity = new P5.Vector(0, 0);
+    this._frictionSystem = new FrictionSystem(this);
   }
 
   update() {
@@ -32,8 +34,16 @@ export default class Walker implements IPhysicsObject, IRigidbody {
     this.constraintCheck();
   }
   applyPhyscis() {
+    //Gravity
     if (this._isGravity) this.applyGravity();
-    if (this._isFriction) this.applyFriction();
+    //Friction
+    if (this._frictionSystem.getState()) {
+      const p5 = this._p5;
+      let diff = p5.height - this._position.y;
+      if (diff < 1) {
+        this._frictionSystem.applyFriction();
+      }
+    }
   }
 
   move() {
@@ -73,21 +83,7 @@ export default class Walker implements IPhysicsObject, IRigidbody {
     gravity.mult(this._mass);
     this.applyForce(gravity);
   }
-  applyFriction() {
-    const p5 = this._p5;
 
-    let diff = p5.height - this._position.y;
-    console.log(diff);
-    if (diff < 1) {
-      // let friction = this._velocity.copy();
-      // friction.normalize();
-      // friction.mult(-1);
-      // friction.setMag(this._fritionMU * this._mass);
-
-      // this.applyForce(friction);
-      this._velocity.mult(0.95);
-    }
-  }
   constraintCheck(): void {
     const p5 = this._p5;
 
