@@ -5,6 +5,7 @@ import FrictionSystem from "../PhysicsSystems/FrictionSystem";
 import GravitySystem from "../PhysicsSystems/GravitySystem";
 
 export default interface IRigidbody {
+  _id: number;
   _mass: number;
   _velocity: P5.Vector;
   _acceleration: P5.Vector;

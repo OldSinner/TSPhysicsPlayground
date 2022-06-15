@@ -18,6 +18,10 @@ export default class DragForceSystem {
 
     this._object.applyForce(dragForce);
   }
+  setEnabled(_isDrag: boolean): DragForceSystem {
+    this._isDrag = _isDrag;
+    return this;
+  }
 
   getstate(): boolean {
     return this._isDrag;

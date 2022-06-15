@@ -9,9 +9,6 @@ export class RigidBodyContext {
     obj.applyForce(this._windVector);
     return this;
   }
-  isRigidBody(obj: any): obj is IRigidbody {
-    return "applyForce" in obj;
-  }
 
   setGravity(gravity: Vector): RigidBodyContext {
     this._gravity = gravity;

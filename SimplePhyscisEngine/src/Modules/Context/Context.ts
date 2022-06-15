@@ -1,5 +1,6 @@
 import { Vector } from "p5";
 import IPhysicsObject from "../Interfaces/IPhysicsObject";
+import TypeCheck from "../Utils/TypeCheck";
 import { RigidBodyContext } from "./RigidBodyContext";
 
 export default class Context {
@@ -38,7 +39,7 @@ export default class Context {
   }
   applyPhyscisToAll(): void {
     this.objects.forEach((obj) => {
-      if (this._rigidContext.isRigidBody(obj)) {
+      if (TypeCheck.isRigidBody(obj)) {
         this._rigidContext.applyWindToObj(obj);
       }
     });
@@ -50,5 +51,8 @@ export default class Context {
   }
   setWind(wind: Vector): void {
     this._rigidContext._windVector = wind;
+  }
+  public getOtherObjects(id: number): IPhysicsObject[] {
+    return this.objects.filter((obj) => obj._id !== id);
   }
 }

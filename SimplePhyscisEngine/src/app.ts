@@ -3,6 +3,7 @@ import Walker from "./Modules/Objects/Walker";
 import Context from "./Modules/Context/Context";
 import Mouse from "./Modules/Objects/Mouse";
 import TargetObj from "./Modules/Objects/TargetObj";
+import { GravityTypes } from "./Modules/Enums/Forces/RigidBodyTypes";
 const sketch = (p5: P5) => {
   const context = new Context();
   const mouse = new Mouse(p5);
@@ -13,9 +14,11 @@ const sketch = (p5: P5) => {
   p5.draw = () => {
     p5.background(0);
     p5.mouseClicked = () => {
-      const walker = new TargetObj(p5, p5.mouseX, p5.mouseY);
-      walker.setVelocityLimit(5).setMass(p5.random(1, 10)).setTarget(mouse);
-
+      const walker = new Walker(p5, p5.mouseX, p5.mouseY);
+      walker._gravitySystem._gravityType = GravityTypes.ObjectsLike;
+      walker.setVelocityLimit(5).setMass(p5.random(1, 10));
+      walker.applyForce(new Vector(p5.random(1, 10), p5.random(1, 10)));
+      walker._dragForceSystem.setEnabled(false);
       context.addObject(walker);
     };
     if (p5.keyIsDown(p5.UP_ARROW)) {
