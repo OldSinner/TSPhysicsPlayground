@@ -26,6 +26,7 @@ export default abstract class PhysicObject
     this._velocity = new P5.Vector(0, 0);
     this._frictionSystem = new FrictionSystem(this);
     this._gravitySystem = new GravitySystem(this);
+    this._dragForceSystem = new DragForceSystem(this);
   }
 
   update() {
@@ -46,12 +47,15 @@ export default abstract class PhysicObject
         this._frictionSystem.applyFriction();
       }
     }
+    //Drag
+    if (this._dragForceSystem.getstate()) {
+      this._dragForceSystem.applyDrag();
+    }
   }
   move() {
     this._velocity.limit(this._velocityLimit);
     this._velocity.add(this._acceleration);
     this._position.add(this._velocity);
-
     this._acceleration.set(0, 0);
   }
   draw() {}

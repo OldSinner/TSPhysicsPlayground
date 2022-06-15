@@ -19,7 +19,7 @@ const sketch = (p5: P5) => {
       context.addObject(walker);
     };
     if (p5.keyIsDown(p5.UP_ARROW)) {
-      context.setWind(new Vector(0.1, 0));
+      context.setWind(new Vector(1, 0));
     } else {
       context.setWind(new Vector(0, 0));
     }
