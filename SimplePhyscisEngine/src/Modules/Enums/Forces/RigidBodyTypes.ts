@@ -7,3 +7,7 @@ export enum GravityTypes {
   ObjectsLike = "objectsLike",
   None = "none",
 }
+export enum RigidBodyTypes {
+  Static = "static",
+  Active = "active",
+}

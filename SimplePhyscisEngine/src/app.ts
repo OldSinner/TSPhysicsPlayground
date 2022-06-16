@@ -4,10 +4,13 @@ import Context from "./Modules/Context/Context";
 import Mouse from "./Modules/Objects/Mouse";
 import TargetObj from "./Modules/Objects/TargetObj";
 import { GravityTypes } from "./Modules/Enums/Forces/RigidBodyTypes";
+import GravityAttractor from "./Modules/Objects/StaticsObjects/GravityAttractor";
 const sketch = (p5: P5) => {
   const context = new Context();
   const mouse = new Mouse(p5);
+  const attractor = new GravityAttractor(p5, 300, 300).setMass(2);
   context.addObject(mouse);
+  context.addObject(attractor);
   p5.setup = () => {
     p5.createCanvas(800, 800);
   };
