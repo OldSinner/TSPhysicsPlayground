@@ -6,6 +6,7 @@ import DragForceSystem from "../../PhysicsSystems/DragForceSystem";
 import FrictionSystem from "../../PhysicsSystems/FrictionSystem";
 import GravitySystem from "../../PhysicsSystems/GravitySystem";
 import P5 from "p5";
+import { RigidBodyTypes } from "../../Enums/Forces/RigidBodyTypes";
 export default class StaticObject implements IRigidbody, IPhysicsObject {
   _position: Vector;
   _id: number;
@@ -16,11 +17,14 @@ export default class StaticObject implements IRigidbody, IPhysicsObject {
   _gravitySystem: GravitySystem;
   _dragForceSystem: DragForceSystem;
   _context: Context;
+  _rigidType: RigidBodyTypes;
+
   /**
    *
    */
   constructor(public p5: P5, x: number, y: number) {
     this._position = new Vector(x, y);
+    this._rigidType = RigidBodyTypes.Static;
   }
 
   applyForce(force: Vector) {}

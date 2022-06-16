@@ -6,6 +6,7 @@ import IRigidbody from "../../Interfaces/IRigidbody";
 import DragForceSystem from "../../PhysicsSystems/DragForceSystem";
 import FrictionSystem from "../../PhysicsSystems/FrictionSystem";
 import GravitySystem from "../../PhysicsSystems/GravitySystem";
+import { RigidBodyTypes } from "../../Enums/Forces/RigidBodyTypes";
 
 export default abstract class PhysicObject
   implements IPhysicsObject, IRigidbody
@@ -20,6 +21,7 @@ export default abstract class PhysicObject
   _frictionSystem: FrictionSystem;
   _gravitySystem: GravitySystem;
   _dragForceSystem: DragForceSystem;
+  _rigidType: RigidBodyTypes;
   constructor(public _p5: P5, x: number, y: number) {
     this._position = new P5.Vector(x, y);
     this._acceleration = new P5.Vector(0, 0);
@@ -27,6 +29,7 @@ export default abstract class PhysicObject
     this._frictionSystem = new FrictionSystem(this);
     this._gravitySystem = new GravitySystem(this);
     this._dragForceSystem = new DragForceSystem(this);
+    this._rigidType = RigidBodyTypes.Active;
   }
 
   update() {

@@ -1,8 +1,8 @@
 import P5, { Vector } from "p5";
-import Walker from "./Modules/Objects/Walker";
+import Walker from "./Modules/Objects/Dynamic/Walker";
 import Context from "./Modules/Context/Context";
-import Mouse from "./Modules/Objects/Mouse";
-import TargetObj from "./Modules/Objects/TargetObj";
+import Mouse from "./Modules/Objects/Dynamic/Mouse";
+import TargetObj from "./Modules/Objects/Dynamic/TargetObj";
 import { GravityTypes } from "./Modules/Enums/Forces/RigidBodyTypes";
 import GravityAttractor from "./Modules/Objects/StaticsObjects/GravityAttractor";
 const sketch = (p5: P5) => {

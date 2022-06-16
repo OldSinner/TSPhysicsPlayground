@@ -1,6 +1,6 @@
-import Context from "../Context/Context";
+import Context from "../../Context/Context";
 import P5 from "p5";
-import IPhysicsObject from "../Interfaces/IPhysicsObject";
+import IPhysicsObject from "../../Interfaces/IPhysicsObject";
 
 export default class Mouse implements IPhysicsObject {
   _id: number;

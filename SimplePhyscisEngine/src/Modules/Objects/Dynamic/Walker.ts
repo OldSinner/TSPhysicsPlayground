@@ -1,4 +1,4 @@
-import PhysicObject from "./Abstracts/PhysicObject";
+import PhysicObject from "../Abstracts/PhysicObject";
 
 export default class Walker extends PhysicObject {
   _size: number = 3;
