@@ -6,8 +6,8 @@ import { RigidBodyContext } from "../Context/RigidBodyContext";
 import TypeCheck from "../Utils/TypeCheck";
 export default class GravitySystem {
   private _object: PhysicObject;
-  _gravityType: GravityTypes = GravityTypes.EarthLike;
-  _gravityAttraction: number = 50;
+  _gravityType: GravityTypes = GravityTypes.ObjectsLike;
+  _gravityAttraction: number = 0.01;
   _isGravity: boolean = true;
   constructor(object: PhysicObject) {
     this._object = object;
@@ -19,6 +19,14 @@ export default class GravitySystem {
   getState(): boolean {
     return this._isGravity;
   }
+  attract(other: PhysicObject) {
+    const p5 = this._object._p5;
+    let force = P5.Vector.sub(this._object._position, other._position);
+    let distancesq = p5.constrain(force.magSq(), 10, 100);
+    let power = this._gravityAttraction * (this._object._mass * other._mass);
+    force.setMag(power);
+    other.applyForce(force);
+  }
   applyGravity() {
     switch (this._gravityType) {
       case GravityTypes.EarthLike:
@@ -27,26 +35,13 @@ export default class GravitySystem {
         this._object.applyForce(gravity);
         break;
       case GravityTypes.ObjectsLike:
-        let objects = this._object._context.getOtherObjects(this._object._id);
+        var objects = this._object._context.getOtherObjects(this._object._id);
         for (let i = 0; i < objects.length; i++) {
-          //
-          if (
-            !TypeCheck.isRigidBody(objects[i]) ||
-            !TypeCheck.isPhysicObject(objects[i])
-          ) {
-            continue;
+          if (TypeCheck.isPhysicObject(objects[i])) {
+            let obj = objects[i] as PhysicObject;
+            this.attract(obj);
           }
-          let obj = objects[i] as PhysicObject;
-          //
-          let force = P5.Vector.sub(obj._position, this._object._position);
-          let distSq = this._object._p5.constrain(force.magSq(), 25, 2500);
-          let forcePower =
-            (this._gravityAttraction * (this._object._mass * obj._mass)) /
-            distSq;
-          force.setMag(forcePower);
-          this._object.applyForce(force);
         }
-        break;
       case GravityTypes.None:
         break;
     }
