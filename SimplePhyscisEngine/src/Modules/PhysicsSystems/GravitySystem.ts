@@ -1,16 +1,15 @@
 import { GravityTypes } from "../Enums/Forces/RigidBodyTypes";
-import IRigidbody from "../Interfaces/IRigidbody";
 import PhysicObject from "../Objects/Abstracts/PhysicObject";
 import P5 from "p5";
 import { RigidBodyContext } from "../Context/RigidBodyContext";
 import TypeCheck from "../Utils/TypeCheck";
+import Rigidbody from "../Components/Rigidbody";
 export default class GravitySystem {
-  private _object: PhysicObject;
+  private _rbody: Rigidbody;
   _gravityType: GravityTypes = GravityTypes.ObjectsLike;
-  _gravityAttraction: number = 0.01;
   _isGravity: boolean = true;
-  constructor(object: PhysicObject) {
-    this._object = object;
+  constructor(rb: Rigidbody) {
+    this._rbody = rb;
   }
   setEnabled(_isGravity: boolean): GravitySystem {
     this._isGravity = _isGravity;
@@ -19,27 +18,36 @@ export default class GravitySystem {
   getState(): boolean {
     return this._isGravity;
   }
-  attract(other: PhysicObject) {
-    const p5 = this._object._p5;
-    let force = P5.Vector.sub(this._object._position, other._position);
+  attract(other: Rigidbody) {
+    const p5 = this._rbody._object._p5;
+    let force = P5.Vector.sub(
+      this._rbody._object._position,
+      other._object._position
+    );
     let distancesq = p5.constrain(force.magSq(), 10, 100);
-    let power = this._gravityAttraction * (this._object._mass * other._mass);
+    let power =
+      (this._rbody._object._context.getGravityAttraction() *
+        (this._rbody._mass * other._mass)) /
+      distancesq;
     force.setMag(power);
     other.applyForce(force);
   }
   applyGravity() {
     switch (this._gravityType) {
       case GravityTypes.EarthLike:
-        let gravity = this._object._context.getGravityValue();
-        gravity.mult(this._object._mass);
-        this._object.applyForce(gravity);
+        let gravity = this._rbody._object._context.getGravityValue();
+        gravity.mult(this._rbody._mass);
+        this._rbody.applyForce(gravity);
         break;
       case GravityTypes.ObjectsLike:
-        var objects = this._object._context.getOtherObjects(this._object._id);
+        var objects = this._rbody._object._context.getOtherObjects(
+          this._rbody._id
+        );
         for (let i = 0; i < objects.length; i++) {
           if (TypeCheck.isPhysicObject(objects[i])) {
             let obj = objects[i] as PhysicObject;
-            this.attract(obj);
+            var rb = obj.TryGetComponent<Rigidbody>();
+            if (rb != null) this.attract(rb as Rigidbody);
           }
         }
       case GravityTypes.None:

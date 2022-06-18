@@ -25,6 +25,11 @@ export default class Context {
   public deleteObject(id: number) {
     this.objects = this.objects.filter((obj) => obj._id !== id);
   }
+  start(): void {
+    this.objects.forEach((obj) => {
+      obj.start();
+    });
+  }
   //--------------------------------
   update(): void {
     this.applyPhyscisToAll();
@@ -54,5 +59,11 @@ export default class Context {
   }
   public getOtherObjects(id: number): IPhysicsObject[] {
     return this.objects.filter((obj) => obj._id !== id);
+  }
+  public getGravityAttraction(): number {
+    return this._rigidContext._gravityAttraction;
+  }
+  public setGravityAttraction(gravityAttraction: number): void {
+    this._rigidContext._gravityAttraction = gravityAttraction;
   }
 }

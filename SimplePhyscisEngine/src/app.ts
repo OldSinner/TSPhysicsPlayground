@@ -1,28 +1,33 @@
 import P5, { Vector } from "p5";
 import Walker from "./Modules/Objects/Dynamic/Walker";
 import Context from "./Modules/Context/Context";
-import Mouse from "./Modules/Objects/Dynamic/Mouse";
 import { GravityTypes } from "./Modules/Enums/Forces/RigidBodyTypes";
-import GravityAttractor from "./Modules/Objects/StaticsObjects/GravityAttractor";
+import Rigidbody from "./Modules/Components/Rigidbody";
 const sketch = (p5: P5) => {
   const context = new Context();
 
   p5.setup = () => {
     p5.createCanvas(800, 800);
-    for (let i = 0; i < 5; i++) {
+
+    for (let i = 0; i < 10; i++) {
       const walker = new Walker(
         p5,
-        p5.random(100, 200),
-        p5.random(100, 300)
-      ).setMass(p5.random(1, 10));
-      walker._dragForceSystem.setEnabled(false);
+        p5.random(100, 700),
+        p5.random(100, 700),
+        15
+      );
+      let walkerRB = walker.GetComponent<Rigidbody>();
+      walkerRB._dragForceSystem.setEnabled(false);
+      walkerRB.setMass(500);
       context.addObject(walker);
     }
+    context.setGravityAttraction(0.001);
 
+    context.start();
     p5.background(0);
   };
   p5.draw = () => {
-    p5.background(0, 122);
+    p5.background(0, 10);
 
     p5.mouseClicked = () => {};
     //
