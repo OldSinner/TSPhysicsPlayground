@@ -9,19 +9,12 @@ const sketch = (p5: P5) => {
   p5.setup = () => {
     p5.createCanvas(800, 800);
 
-    for (let i = 0; i < 10; i++) {
-      const walker = new Walker(
-        p5,
-        p5.random(100, 700),
-        p5.random(100, 700),
-        15
-      );
-      let walkerRB = walker.GetComponent<Rigidbody>();
-      walkerRB._dragForceSystem.setEnabled(false);
-      walkerRB.setMass(500);
-      context.addObject(walker);
-    }
     context.setGravityAttraction(0.001);
+    const walker = new Walker(p5, 400, 400, 40);
+    let walkerRB = walker.GetComponent<Rigidbody>();
+    walkerRB._dragForceSystem.setEnabled(false);
+    walkerRB.setMass(50000);
+    context.addObject(walker);
 
     context.start();
     p5.background(0);
@@ -29,7 +22,13 @@ const sketch = (p5: P5) => {
   p5.draw = () => {
     p5.background(0, 10);
 
-    p5.mouseClicked = () => {};
+    p5.mouseClicked = () => {
+      const walker = new Walker(p5, p5.mouseX, p5.mouseY, 15);
+      let walkerRB = walker.GetComponent<Rigidbody>();
+      walkerRB._dragForceSystem.setEnabled(false);
+      walkerRB.setMass(500);
+      context.addObject(walker);
+    };
     //
     if (p5.keyIsDown(p5.UP_ARROW)) {
       context.setWind(new Vector(1, 0));

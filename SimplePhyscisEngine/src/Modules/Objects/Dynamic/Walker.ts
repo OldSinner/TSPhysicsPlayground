@@ -1,6 +1,7 @@
 import PhysicObject from "../Abstracts/PhysicObject";
 import P5 from "p5";
 import Rigidbody from "../../Components/Rigidbody";
+import { CircleCollider } from "../../Components/CircleCollider";
 
 export default class Walker extends PhysicObject {
   _size: number = 3;
@@ -14,6 +15,7 @@ export default class Walker extends PhysicObject {
       p5.random(100, 255)
     );
     this._components.push(new Rigidbody(this));
+    this._components.push(new CircleCollider(this));
     this._size = size;
   }
   setup(): void {}

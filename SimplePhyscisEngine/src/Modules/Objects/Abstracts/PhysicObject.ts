@@ -10,6 +10,7 @@ export default abstract class PhysicObject implements IPhysicsObject {
   _position: Vector;
   _context: Context;
   _components: ICompontent[] = [];
+  _size: number = 3;
   constructor(public _p5: P5, x: number, y: number) {
     this._position = new P5.Vector(x, y);
   }

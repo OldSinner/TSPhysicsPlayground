@@ -41,6 +41,8 @@ export default class Rigidbody implements ICompontent {
     this._acceleration.add(fc);
   }
   move(): Rigidbody {
+    this._velocity.limit(5);
+
     this._velocity.add(this._acceleration);
     this._object._position.add(this._velocity);
     this._acceleration.set(0, 0);
