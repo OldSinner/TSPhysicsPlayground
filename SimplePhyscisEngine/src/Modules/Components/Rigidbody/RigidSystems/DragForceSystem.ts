@@ -11,7 +11,7 @@ export default class DragForceSystem {
     this._rboody = object;
   }
 
-  applyDrag() {
+  applyDrag(): DragForceSystem {
     let dragForce = this._rboody._velocity.copy();
     dragForce.normalize();
     dragForce.mult(-1);
@@ -19,6 +19,7 @@ export default class DragForceSystem {
     dragForce.setMag(this._dragCoefficient * speed * speed);
 
     this._rboody.applyForce(dragForce);
+    return this;
   }
 
   setEnabled(_isDrag: boolean): DragForceSystem {

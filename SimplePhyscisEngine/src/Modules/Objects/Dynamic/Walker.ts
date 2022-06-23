@@ -3,15 +3,6 @@ import P5 from "p5";
 import Rigidbody from "../../Components/Rigidbody/Rigidbody";
 import { CircleCollider } from "../../Components/CircleCollider";
 
-/**
- * Description placeholder
- * @date 23.06.2022 - 23:14:10
- *
- * @export
- * @class Walker
- * @typedef {Walker}
- * @extends {PhysicObject}
- */
 export default class Walker extends PhysicObject {
   _size: number = 3;
 

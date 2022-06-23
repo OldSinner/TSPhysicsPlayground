@@ -49,12 +49,12 @@ export default class Rigidbody implements ICompontent {
     this._velocity.limit(5);
 
     this._velocity.add(this._acceleration);
-    this._object._transform.move(this._velocity);
+    this._object._transform.translate(this._velocity);
     this._acceleration.set(0, 0);
     return this;
   }
 
-  applyPhyscis() {
+  private applyPhyscis(): void {
     //Gravity
     if (this._gravitySystem.getState()) {
       this._gravitySystem.applyGravity();

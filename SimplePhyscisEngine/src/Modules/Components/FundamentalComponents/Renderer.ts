@@ -7,10 +7,11 @@ export default class Renderer {
     this._obj = obj;
   }
 
-  render(render: Function) {
+  render(render: Function): Renderer {
     this._obj._p5.push();
     this._obj._transform.applyTransform(this._obj);
     render();
     this._obj._p5.pop();
+    return this;
   }
 }

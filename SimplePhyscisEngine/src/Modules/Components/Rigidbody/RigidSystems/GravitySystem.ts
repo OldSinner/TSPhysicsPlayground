@@ -25,7 +25,7 @@ export default class GravitySystem {
     return this._isGravity;
   }
 
-  attract(other: Rigidbody) {
+  attract(other: Rigidbody): GravitySystem {
     const p5 = this._rbody._object._p5;
     let force = P5.Vector.sub(
       this._rbody._object._transform.getPosition(),
@@ -38,9 +38,10 @@ export default class GravitySystem {
       distancesq;
     force.setMag(power);
     other.applyForce(force);
+    return this;
   }
 
-  applyGravity() {
+  applyGravity(): GravitySystem {
     switch (this._gravityType) {
       case GravityTypes.EarthLike:
         let gravity = this._rbody._object._context.getGravityValue();
@@ -61,5 +62,6 @@ export default class GravitySystem {
       case GravityTypes.None:
         break;
     }
+    return this;
   }
 }
