@@ -4,70 +4,32 @@ import P5 from "p5";
 import { RigidBodyContext } from "../../../Context/RigidBodyContext";
 import TypeCheck from "../../../Utils/TypeCheck";
 import Rigidbody from "../Rigidbody";
-/**
- * Description placeholder
- *
- * @export
- * @class GravitySystem
- * @typedef {GravitySystem}
- */
+
 export default class GravitySystem {
-  /**
-   * Description placeholder
-   *
-   * @private
-   * @type {Rigidbody}
-   */
   private _rbody: Rigidbody;
-  /**
-   * Description placeholder
-   *
-   * @type {GravityTypes}
-   */
+
   _gravityType: GravityTypes = GravityTypes.ObjectsLike;
-  /**
-   * Description placeholder
-   *
-   * @type {boolean}
-   */
+
   _isGravity: boolean = true;
-  /**
-   * Creates an instance of GravitySystem.
-   *
-   * @constructor
-   * @param {Rigidbody} rb
-   */
+
   constructor(rb: Rigidbody) {
     this._rbody = rb;
   }
-  /**
-   * Description placeholder
-   *
-   * @param {boolean} _isGravity
-   * @returns {GravitySystem}
-   */
+
   setEnabled(_isGravity: boolean): GravitySystem {
     this._isGravity = _isGravity;
     return this;
   }
-  /**
-   * Description placeholder
-   *
-   * @returns {boolean}
-   */
+
   getState(): boolean {
     return this._isGravity;
   }
-  /**
-   * Description placeholder
-   *
-   * @param {Rigidbody} other
-   */
+
   attract(other: Rigidbody) {
     const p5 = this._rbody._object._p5;
     let force = P5.Vector.sub(
-      this._rbody._object._transform._position,
-      other._object._transform._position
+      this._rbody._object._transform.getPosition(),
+      other._object._transform.getPosition()
     );
     let distancesq = p5.constrain(force.magSq(), 10, 100);
     let power =
@@ -77,9 +39,7 @@ export default class GravitySystem {
     force.setMag(power);
     other.applyForce(force);
   }
-  /**
-   * Description placeholder
-   */
+
   applyGravity() {
     switch (this._gravityType) {
       case GravityTypes.EarthLike:
