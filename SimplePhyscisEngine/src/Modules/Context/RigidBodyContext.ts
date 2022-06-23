@@ -1,5 +1,5 @@
 import { Vector } from "p5";
-import Rigidbody from "../Components/Rigidbody";
+import Rigidbody from "../Components/Rigidbody/Rigidbody";
 
 export class RigidBodyContext {
   public _gravity: Vector = new Vector(0, 0.1);

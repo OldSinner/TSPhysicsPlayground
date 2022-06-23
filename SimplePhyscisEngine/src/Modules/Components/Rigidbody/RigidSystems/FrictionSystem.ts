@@ -1,6 +1,6 @@
-import Rigidbody from "../Components/Rigidbody";
-import { FrictionTypes } from "../Enums/Forces/RigidBodyTypes";
-import IPhysicsObject from "../Interfaces/IPhysicsObject";
+import Rigidbody from "../Rigidbody";
+import { FrictionTypes } from "../../../Enums/Forces/RigidBodyTypes";
+import IPhysicsObject from "../../../Interfaces/IPhysicsObject";
 
 export default class FrictionSystem {
   private _rbody: Rigidbody;

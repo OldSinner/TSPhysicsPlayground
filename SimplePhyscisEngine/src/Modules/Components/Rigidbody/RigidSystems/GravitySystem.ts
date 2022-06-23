@@ -1,9 +1,9 @@
-import { GravityTypes } from "../Enums/Forces/RigidBodyTypes";
-import PhysicObject from "../Objects/Abstracts/PhysicObject";
+import { GravityTypes } from "../../../Enums/Forces/RigidBodyTypes";
+import PhysicObject from "../../../Context/ContextObjects/PhysicObject";
 import P5 from "p5";
-import { RigidBodyContext } from "../Context/RigidBodyContext";
-import TypeCheck from "../Utils/TypeCheck";
-import Rigidbody from "../Components/Rigidbody";
+import { RigidBodyContext } from "../../../Context/RigidBodyContext";
+import TypeCheck from "../../../Utils/TypeCheck";
+import Rigidbody from "../Rigidbody";
 export default class GravitySystem {
   private _rbody: Rigidbody;
   _gravityType: GravityTypes = GravityTypes.ObjectsLike;
@@ -21,8 +21,8 @@ export default class GravitySystem {
   attract(other: Rigidbody) {
     const p5 = this._rbody._object._p5;
     let force = P5.Vector.sub(
-      this._rbody._object._position,
-      other._object._position
+      this._rbody._object._transform._position,
+      other._object._transform._position
     );
     let distancesq = p5.constrain(force.magSq(), 10, 100);
     let power =

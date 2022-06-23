@@ -1,4 +1,4 @@
-import Rigidbody from "../Components/Rigidbody";
+import Rigidbody from "../Rigidbody";
 
 export default class DragForceSystem {
   private _rboody: Rigidbody;

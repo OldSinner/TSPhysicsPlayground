@@ -1,18 +1,22 @@
 import { Vector } from "p5";
 import P5 from "p5";
-import Context from "../../Context/Context";
+import Context from "../Context";
 import IPhysicsObject from "../../Interfaces/IPhysicsObject";
 import ICompontent from "../../Interfaces/ICompontent";
 import TypeCheck from "../../Utils/TypeCheck";
+import Transform from "../../Components/FundamentalComponents/Transform";
+import Renderer from "../../Components/FundamentalComponents/Renderer";
 
 export default abstract class PhysicObject implements IPhysicsObject {
   _id: number;
-  _position: Vector;
   _context: Context;
   _components: ICompontent[] = [];
   _size: number = 3;
+  _transform: Transform;
+  _renderer: Renderer = new Renderer(this);
+
   constructor(public _p5: P5, x: number, y: number) {
-    this._position = new P5.Vector(x, y);
+    this._transform = new Transform(x, y);
   }
 
   start(): void {}

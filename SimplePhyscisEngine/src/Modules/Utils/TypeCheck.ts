@@ -1,4 +1,4 @@
-import Rigidbody from "../Components/Rigidbody";
+import Rigidbody from "../Components/Rigidbody/Rigidbody";
 import ICompontent from "../Interfaces/ICompontent";
 import IPhysicsObject from "../Interfaces/IPhysicsObject";
 

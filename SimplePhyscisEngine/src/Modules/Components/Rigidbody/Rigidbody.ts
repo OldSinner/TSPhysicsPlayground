@@ -1,11 +1,11 @@
-import ICompontent from "../Interfaces/ICompontent";
+import ICompontent from "../../Interfaces/ICompontent";
 import P5, { TYPE, Vector } from "p5";
-import Context from "../Context/Context";
-import { RigidBodyTypes } from "../Enums/Forces/RigidBodyTypes";
-import DragForceSystem from "../PhysicsSystems/DragForceSystem";
-import FrictionSystem from "../PhysicsSystems/FrictionSystem";
-import GravitySystem from "../PhysicsSystems/GravitySystem";
-import IPhysicObject from "../Objects/Abstracts/PhysicObject";
+import Context from "../../Context/Context";
+import { RigidBodyTypes } from "../../Enums/Forces/RigidBodyTypes";
+import DragForceSystem from "./RigidSystems/DragForceSystem";
+import FrictionSystem from "./RigidSystems/FrictionSystem";
+import GravitySystem from "./RigidSystems/GravitySystem";
+import IPhysicObject from "../../Context/ContextObjects/PhysicObject";
 export default class Rigidbody implements ICompontent {
   _id: number;
   _mass: number;
@@ -44,7 +44,7 @@ export default class Rigidbody implements ICompontent {
     this._velocity.limit(5);
 
     this._velocity.add(this._acceleration);
-    this._object._position.add(this._velocity);
+    this._object._transform.move(this._velocity);
     this._acceleration.set(0, 0);
     return this;
   }
@@ -56,7 +56,7 @@ export default class Rigidbody implements ICompontent {
     //Friction
     if (this._frictionSystem.getState()) {
       const p5 = this._object._p5;
-      let diff = p5.height - this._object._position.y;
+      let diff = p5.height - this._object._transform._position.y;
       if (diff < 1) {
         this._frictionSystem.applyFriction();
       }

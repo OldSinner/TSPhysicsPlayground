@@ -1,6 +1,6 @@
-import PhysicObject from "../Abstracts/PhysicObject";
+import PhysicObject from "../../Context/ContextObjects/PhysicObject";
 import P5 from "p5";
-import Rigidbody from "../../Components/Rigidbody";
+import Rigidbody from "../../Components/Rigidbody/Rigidbody";
 import { CircleCollider } from "../../Components/CircleCollider";
 
 export default class Walker extends PhysicObject {
@@ -18,31 +18,14 @@ export default class Walker extends PhysicObject {
     this._components.push(new CircleCollider(this));
     this._size = size;
   }
-  setup(): void {}
   draw(): void {
+    super.draw();
     const p5 = this._p5;
     p5.stroke(p5.color(this._color));
     p5.strokeWeight(this._size);
-    p5.point(this._position.x, this._position.y);
+    p5.point(this._transform._position);
   }
   update(): void {
     super.update();
-    // this.constraintCheck();
   }
-  // constraintCheck(): void {
-  //   const p5 = this._p5;
-
-  //   if (this._position.y >= p5.height) {
-  //     this._position.y = p5.height;
-  //     this._velocity.y *= -1;
-  //   }
-  //   if (this._position.x >= p5.width) {
-  //     this._position.x = p5.width;
-  //     this._velocity.x *= -1;
-  //   }
-  //   if (this._position.x <= 0) {
-  //     this._position.x = 0;
-  //     this._velocity.x *= -1;
-  //   }
-  // }
 }
