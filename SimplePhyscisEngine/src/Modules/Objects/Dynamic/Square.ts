@@ -1,43 +1,10 @@
 import PhysicObject from "../../Context/ContextObjects/PhysicObject";
 import P5 from "p5";
 
-/**
- * Description placeholder
- *
- * @export
- * @class Square
- * @typedef {Square}
- * @extends {PhysicObject}
- */
 export default class Square extends PhysicObject {
-  /**
-   * Description placeholder
-   *
-   * @type {*}
-   */
   _color = this._p5.color(255, 255, 255);
-  /**
-   * Description placeholder
-   *
-   * @type {*}
-   */
   _width;
-  /**
-   * Description placeholder
-   *
-   * @type {*}
-   */
   _height;
-  /**
-   * Creates an instance of Square.
-   *
-   * @constructor
-   * @param {P5} _p5
-   * @param {number} x
-   * @param {number} y
-   * @param {number} [_width=100]
-   * @param {number} [_height=10]
-   */
   constructor(
     public _p5: P5,
     x: number,
@@ -55,24 +22,14 @@ export default class Square extends PhysicObject {
       p5.random(100, 255)
     );
   }
-  /**
-   * Description placeholder
-   */
   start(): void {}
-  /**
-   * Description placeholder
-   */
   draw(): void {
     const p5 = this._p5;
     this._renderer.render(() => {
       p5.rectMode("center");
       p5.fill(this._color);
-      p5.rect(
-        this._transform._position.x,
-        this._transform._position.y,
-        this._width,
-        this._height
-      );
+      const pos = this._transform.getPosition();
+      p5.rect(pos.x, pos.y, this._width, this._height);
     });
   }
 }
