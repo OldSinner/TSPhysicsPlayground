@@ -3,8 +3,26 @@ import ICompontent from "../Interfaces/ICompontent";
 import PhysicObject from "../Context/ContextObjects/PhysicObject";
 import TypeCheck from "../Utils/TypeCheck";
 
+/**
+ * Description placeholder
+ *  23.06.2022 - 23:13:05
+ *
+ * @export
+ * @class CircleCollider
+ * @typedef {CircleCollider}
+ * @implements {ICompontent}
+ */
 export class CircleCollider implements ICompontent {
+  /**
+   * Creates an instance of CircleCollider.
+   *
+   * @constructor
+   * @param {PhysicObject} _object
+   */
   constructor(public _object: PhysicObject) {}
+  /**
+   * Description placeholder
+   */
   update() {
     var objs = this._object._context.getOtherObjects(this._object._id);
     for (let i = 0; i < objs.length; i++) {
@@ -17,6 +35,12 @@ export class CircleCollider implements ICompontent {
       }
     }
   }
+  /**
+   * Description placeholder
+   *
+   * @param {CircleCollider} other
+   * @returns {boolean}
+   */
   checkCollision(other: CircleCollider): boolean {
     let dst = p5.Vector.dist(
       this._object._transform._position,
@@ -29,6 +53,11 @@ export class CircleCollider implements ICompontent {
     }
     return false;
   }
+  /**
+   * Description placeholder
+   *
+   * @param {PhysicObject} other
+   */
   resolveCircle(other: PhysicObject): void {
     let dst = p5.Vector.sub(
       this._object._transform._position,

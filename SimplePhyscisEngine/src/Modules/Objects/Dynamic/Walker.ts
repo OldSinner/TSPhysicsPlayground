@@ -3,9 +3,37 @@ import P5 from "p5";
 import Rigidbody from "../../Components/Rigidbody/Rigidbody";
 import { CircleCollider } from "../../Components/CircleCollider";
 
+/**
+ * Description placeholder
+ * @date 23.06.2022 - 23:14:10
+ *
+ * @export
+ * @class Walker
+ * @typedef {Walker}
+ * @extends {PhysicObject}
+ */
 export default class Walker extends PhysicObject {
+  /**
+   * Description placeholder
+   *
+   * @type {number}
+   */
   _size: number = 3;
+  /**
+   * Description placeholder
+   *
+   * @type {*}
+   */
   _color = this._p5.color(255, 255, 255);
+  /**
+   * Creates an instance of Walker.
+   *
+   * @constructor
+   * @param {P5} _p5
+   * @param {number} x
+   * @param {number} y
+   * @param {number} size
+   */
   constructor(public _p5: P5, x: number, y: number, size: number) {
     super(_p5, x, y);
     const p5 = this._p5;
@@ -18,6 +46,9 @@ export default class Walker extends PhysicObject {
     this._components.push(new CircleCollider(this));
     this._size = size;
   }
+  /**
+   * Description placeholder
+   */
   draw(): void {
     super.draw();
     const p5 = this._p5;
@@ -25,6 +56,9 @@ export default class Walker extends PhysicObject {
     p5.strokeWeight(this._size);
     p5.point(this._transform._position);
   }
+  /**
+   * Description placeholder
+   */
   update(): void {
     super.update();
   }
