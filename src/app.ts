@@ -21,7 +21,7 @@ window.onload = () => {
     p5.draw = () => {
       p5.background(0, 10);
       sq._transform.rotate(p5.radians(1));
-      sq._transform.move(new Vector(0, 0.1));
+      sq._transform.translate(new Vector(0, 0.1));
 
       context.update();
     };

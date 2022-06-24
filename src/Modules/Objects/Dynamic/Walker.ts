@@ -21,11 +21,12 @@ export default class Walker extends PhysicObject {
     this._size = size;
   }
   draw(): void {
-    super.draw();
     const p5 = this._p5;
-    p5.stroke(p5.color(this._color));
-    p5.strokeWeight(this._size);
-    p5.point(this._transform.getPosition());
+    this._renderer.render(() => {
+      p5.stroke(p5.color(this._color));
+      p5.strokeWeight(this._size);
+      p5.point(this._transform.getPosition());
+    });
   }
 
   update(): void {

@@ -9,15 +9,10 @@ import Renderer from "../../Components/FundamentalComponents/Renderer";
 
 export default abstract class PhysicObject implements IPhysicsObject {
   _id: number;
-
   _context: Context;
-
   _components: ICompontent[] = [];
-
   _size: number = 3;
-
   _transform: Transform;
-
   _renderer: Renderer = new Renderer(this);
 
   constructor(public _p5: P5, x: number, y: number) {

@@ -43,11 +43,13 @@ export default class GravitySystem {
 
   applyGravity(): GravitySystem {
     switch (this._gravityType) {
+      //------------------
       case GravityTypes.EarthLike:
         let gravity = this._rbody._object._context.getGravityValue();
         gravity.mult(this._rbody._mass);
         this._rbody.applyForce(gravity);
         break;
+      //------------------
       case GravityTypes.ObjectsLike:
         var objects = this._rbody._object._context.getOtherObjects(
           this._rbody._object._id
@@ -59,6 +61,7 @@ export default class GravitySystem {
             if (rb != null) this.attract(rb as Rigidbody);
           }
         }
+      //------------------
       case GravityTypes.None:
         break;
     }

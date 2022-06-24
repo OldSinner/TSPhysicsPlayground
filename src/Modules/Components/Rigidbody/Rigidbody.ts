@@ -35,11 +35,6 @@ export default class Rigidbody implements ICompontent {
     this.move();
   }
 
-  setMass(mass: number): Rigidbody {
-    this._mass = mass;
-    return this;
-  }
-
   applyForce(force: Vector) {
     let fc = P5.Vector.div(force, this._mass)! as Vector;
     this._acceleration.add(fc);
@@ -51,6 +46,11 @@ export default class Rigidbody implements ICompontent {
     this._velocity.add(this._acceleration);
     this._object._transform.translate(this._velocity);
     this._acceleration.set(0, 0);
+    return this;
+  }
+
+  setMass(mass: number): Rigidbody {
+    this._mass = mass;
     return this;
   }
 

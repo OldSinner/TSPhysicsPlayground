@@ -23,12 +23,14 @@ export default class Square extends PhysicObject {
     );
   }
   start(): void {}
+
   draw(): void {
     const p5 = this._p5;
+    const pos = this._transform.getPosition();
+
     this._renderer.render(() => {
       p5.rectMode("center");
       p5.fill(this._color);
-      const pos = this._transform.getPosition();
       p5.rect(pos.x, pos.y, this._width, this._height);
     });
   }

@@ -2,9 +2,7 @@ import Rigidbody from "../Rigidbody";
 
 export default class DragForceSystem {
   private _rboody: Rigidbody;
-
   private _isDrag: boolean = true;
-
   private _dragCoefficient: number = 0.1;
 
   constructor(object: Rigidbody) {
