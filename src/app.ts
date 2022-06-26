@@ -5,24 +5,31 @@ import { GravityTypes } from "./Modules/Enums/Forces/RigidBodyTypes";
 import Rigidbody from "./Modules/Components/Rigidbody/Rigidbody";
 import Square from "./Modules/Objects/Dynamic/Square";
 import Debuger from "./Modules/Components/Debuger";
+import { CircleCollider } from "./Modules/Components/CircleCollider";
 window.onload = () => {
   const sketch = (p5: P5) => {
     const context = new Context();
-    const sq = new Square(p5, 400, 400, 790, 100);
     p5.setup = () => {
       p5.createCanvas(800, 800);
-      sq.AddComponent(new Debuger(sq));
+      for (let i = 0; i < 5; i++) {
+        var circle = new Walker(p5, p5.random(0, 800), p5.random(0, 800), 40);
+        let debuger = new Debuger(circle);
+        debuger.showOrgin = true;
+        debuger.showRotate = true;
+        debuger.showRigidbody = true;
+        circle.AddComponent(debuger);
+        circle.AddComponent(new Rigidbody(circle));
+        circle.AddComponent(new CircleCollider(circle));
+        context.addObject(circle);
+      }
+
       context.setGravityAttraction(0.001);
-      context.addObject(new Square(p5, 400, 400, 100, 790));
-      context.addObject(sq);
 
       context.start();
       p5.background(0);
     };
     p5.draw = () => {
       p5.background(0);
-      sq._transform.rotate(p5.radians(1));
-      sq._transform.translate(new Vector(0, 0.1));
 
       context.update();
     };

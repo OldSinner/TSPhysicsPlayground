@@ -29,9 +29,7 @@ export default class Rigidbody implements ICompontent {
     this._object = obj;
     this._mass = 10;
   }
-  postUpdate() {
-    throw new Error("Method not implemented.");
-  }
+  postUpdate() {}
 
   update() {
     this.applyPhyscis();
