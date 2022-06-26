@@ -16,8 +16,6 @@ export default class Walker extends PhysicObject {
       p5.random(100, 255),
       p5.random(100, 255)
     );
-    this._components.push(new Rigidbody(this));
-    this._components.push(new CircleCollider(this));
     this._size = size;
   }
   draw(): void {

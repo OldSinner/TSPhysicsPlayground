@@ -1,6 +1,7 @@
 import p5 from "p5";
 import Transform from "../Components/FundamentalComponents/Transform";
 import Context from "../Context/Context";
+import { Constructor } from "../Enums/Types/Constructor";
 import ICompontent from "./ICompontent";
 
 /**
@@ -23,9 +24,8 @@ export default interface IPhysicsObject {
 
   setContext(context: Context): void;
 
-  GetComponent<T>(): T;
-
-  TryGetComponent<T>(): T | null;
+  GetComponent<T>(className: Constructor<T>);
+  TryGetComponent<T>(className: Constructor<T>): T | false;
   AddComponent(component: ICompontent);
   postUpdate();
 }

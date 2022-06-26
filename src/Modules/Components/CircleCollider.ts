@@ -11,11 +11,11 @@ export class CircleCollider implements ICompontent {
     var objs = this._object._context.getOtherObjects(this._object._id);
     for (let i = 0; i < objs.length; i++) {
       if (
-        TypeCheck.isComponent<CircleCollider>(objs[i]) &&
+        objs[i].TryGetComponent<CircleCollider>(CircleCollider) &&
         TypeCheck.isPhysicObject(objs[i])
       ) {
         let obj = objs[i] as PhysicObject;
-        this.checkCollision(obj.GetComponent<CircleCollider>());
+        this.checkCollision(obj.GetComponent<CircleCollider>(CircleCollider));
       }
     }
   }

@@ -31,7 +31,7 @@ export default class Debuger implements ICompontent {
       this.cursor++;
     }
     if (this.showRigidbody) {
-      if (this._obj.TryGetComponent<Rigidbody>()) {
+      if (this._obj.TryGetComponent<Rigidbody>(Rigidbody)) {
         this.drawVelocity(p5);
       }
     }
@@ -68,7 +68,7 @@ export default class Debuger implements ICompontent {
   }
   private drawVelocity(p5: p5) {
     const pos = this._obj._transform.getPosition();
-    const rb = this._obj.GetComponent<Rigidbody>();
+    const rb = this._obj.GetComponent<Rigidbody>(Rigidbody);
     const vel = rb._velocity.copy();
 
     p5.stroke(255, 0, 0);

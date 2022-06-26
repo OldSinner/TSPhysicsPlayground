@@ -1,4 +1,5 @@
 import Rigidbody from "../Components/Rigidbody/Rigidbody";
+import { Constructor } from "../Enums/Types/Constructor";
 import ICompontent from "../Interfaces/ICompontent";
 import IPhysicsObject from "../Interfaces/IPhysicsObject";
 
@@ -11,7 +12,10 @@ export default class TypeCheck {
     return "update" in obj;
   }
 
-  static isComponent<ICompontent>(obj: any): obj is ICompontent {
-    return "update" in obj;
+  static isComponent<T>(obj: T, componentName: Constructor<T>): boolean {
+    if (obj instanceof componentName) {
+      return true;
+    }
+    return false;
   }
 }

@@ -7,6 +7,8 @@ import TypeCheck from "../../Utils/TypeCheck";
 import Transform from "../../Components/FundamentalComponents/Transform";
 import Renderer from "../../Components/FundamentalComponents/Renderer";
 import Debuger from "../../Components/Debuger";
+import { Constructor } from "../../Enums/Types/Constructor";
+import Rigidbody from "../../Components/Rigidbody/Rigidbody";
 
 export default abstract class PhysicObject implements IPhysicsObject {
   _id: number;
@@ -38,18 +40,18 @@ export default abstract class PhysicObject implements IPhysicsObject {
     return this;
   }
 
-  TryGetComponent<T>(): T | null {
+  TryGetComponent<T>(className: Constructor<T>): T | false {
     for (let i = 0; i < this._components.length; i++) {
-      if (TypeCheck.isComponent<T>(this._components[i])) {
+      if (this._components[i] instanceof className) {
         return this._components[i] as T;
       }
     }
-    return null;
+    return false;
   }
 
-  GetComponent<T>(): T {
+  GetComponent<T>(className: Constructor<T>): T {
     for (let i = 0; i < this._components.length; i++) {
-      if (TypeCheck.isComponent<T>(this._components[i])) {
+      if (this._components[i] instanceof className) {
         return this._components[i] as T;
       }
     }

@@ -57,7 +57,7 @@ export default class GravitySystem {
         for (let i = 0; i < objects.length; i++) {
           if (TypeCheck.isPhysicObject(objects[i])) {
             let obj = objects[i] as PhysicObject;
-            var rb = obj.TryGetComponent<Rigidbody>();
+            var rb = obj.TryGetComponent<Rigidbody>(Rigidbody);
             if (rb != null) this.attract(rb as Rigidbody);
           }
         }
