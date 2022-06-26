@@ -26,4 +26,6 @@ export default interface IPhysicsObject {
   GetComponent<T>(): ICompontent;
 
   TryGetComponent<T>(): T | null;
+  AddComponent(component: ICompontent);
+  postUpdate();
 }

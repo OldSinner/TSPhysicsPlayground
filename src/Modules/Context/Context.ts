@@ -1,4 +1,5 @@
 import { Vector } from "p5";
+import Debuger from "../Components/Debuger";
 import IPhysicsObject from "../Interfaces/IPhysicsObject";
 import TypeCheck from "../Utils/TypeCheck";
 import { RigidBodyContext } from "./RigidBodyContext";
@@ -42,12 +43,18 @@ export default class Context {
   update(): void {
     this.applyPhyscisToAll();
     this.updateAll();
+    this.postUpdateAll();
   }
   //--------------------------------
 
   updateAll(): void {
     this.objects.forEach((obj) => {
       obj.update();
+    });
+  }
+  postUpdateAll(): void {
+    this.objects.forEach((obj) => {
+      obj.postUpdate();
     });
   }
 

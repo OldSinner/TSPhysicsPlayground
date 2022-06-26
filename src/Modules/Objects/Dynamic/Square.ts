@@ -29,6 +29,7 @@ export default class Square extends PhysicObject {
     const pos = this._transform.getPosition();
 
     this._renderer.render(() => {
+      p5.noStroke();
       p5.rectMode("center");
       p5.fill(this._color);
       p5.rect(pos.x, pos.y, this._width, this._height);

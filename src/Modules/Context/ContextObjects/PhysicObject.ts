@@ -6,6 +6,7 @@ import ICompontent from "../../Interfaces/ICompontent";
 import TypeCheck from "../../Utils/TypeCheck";
 import Transform from "../../Components/FundamentalComponents/Transform";
 import Renderer from "../../Components/FundamentalComponents/Renderer";
+import Debuger from "../../Components/Debuger";
 
 export default abstract class PhysicObject implements IPhysicsObject {
   _id: number;
@@ -14,9 +15,13 @@ export default abstract class PhysicObject implements IPhysicsObject {
   _size: number = 3;
   _transform: Transform;
   _renderer: Renderer = new Renderer(this);
+  debuger: Debuger;
 
   constructor(public _p5: P5, x: number, y: number) {
     this._transform = new Transform(x, y);
+  }
+  postUpdate() {
+    this._components.forEach((component) => component.postUpdate());
   }
 
   start(): void {}
@@ -49,5 +54,8 @@ export default abstract class PhysicObject implements IPhysicsObject {
       }
     }
     throw new Error("Component not found");
+  }
+  AddComponent(component: ICompontent) {
+    this._components.push(component);
   }
 }

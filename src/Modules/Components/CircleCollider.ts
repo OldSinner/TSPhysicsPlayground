@@ -5,6 +5,9 @@ import TypeCheck from "../Utils/TypeCheck";
 
 export class CircleCollider implements ICompontent {
   constructor(public _object: PhysicObject) {}
+  postUpdate() {
+    throw new Error("Method not implemented.");
+  }
 
   update() {
     var objs = this._object._context.getOtherObjects(this._object._id);
