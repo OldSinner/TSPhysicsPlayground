@@ -17,6 +17,7 @@ window.onload = () => {
         debuger.showOrgin = true;
         debuger.showRotate = true;
         debuger.showRigidbody = true;
+        debuger.isShowText = true;
         circle.AddComponent(debuger);
         circle.AddComponent(new Rigidbody(circle));
         circle.AddComponent(new CircleCollider(circle));

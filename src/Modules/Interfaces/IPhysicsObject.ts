@@ -23,7 +23,7 @@ export default interface IPhysicsObject {
 
   setContext(context: Context): void;
 
-  GetComponent<T>(): ICompontent;
+  GetComponent<T>(): T;
 
   TryGetComponent<T>(): T | null;
   AddComponent(component: ICompontent);
