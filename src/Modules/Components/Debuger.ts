@@ -39,7 +39,7 @@ export default class Debuger implements ICompontent {
   }
   private drawRotation(p5: p5) {
     const pos = this._obj._transform.getPosition();
-    const rot = this._obj._transform.getRotation();
+    const rot = this._obj._transform.getRotationbyRad();
 
     const debuginfo = "Rot: " + ((360 * rot) / (2 * Math.PI)).toFixed(1);
     this.showText(debuginfo, 0, 0, 150);

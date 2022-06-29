@@ -1,4 +1,4 @@
-import { Vector } from "p5";
+import p5, { Vector } from "p5";
 import IPhysicsObject from "../../Interfaces/IPhysicsObject";
 
 export default class Transform {
@@ -6,9 +6,11 @@ export default class Transform {
   _orginPosition: Vector;
   private _rotation: number = 0;
   _scale: Vector = new Vector(1, 1);
-  constructor(x: number, y: number) {
+  _obj: IPhysicsObject;
+  constructor(x: number, y: number, obj: IPhysicsObject) {
     this._position = new Vector(x, y);
     this._orginPosition = this._position;
+    this._obj = obj;
   }
   //---------------------
   setPosition(x: number, y: number) {
@@ -34,13 +36,21 @@ export default class Transform {
   getRotation(): number {
     return this._rotation;
   }
+  getRotationInDeg(): number {
+    return this._obj._p5.radians(this._rotation);
+  }
 
   rotate(angle: number): Transform {
     this._rotation += angle;
     return this;
   }
 
+  forward(): Vector {
+    return Vector.fromAngle(this._obj._p5.radians(this._rotation));
+  }
+
   applyTransform(obj: IPhysicsObject): Transform {
+    obj._p5.angleMode(obj._p5.DEGREES);
     obj._p5.translate(this._orginPosition);
     obj._p5.rotate(this._rotation);
     obj._p5.scale(this._scale);

@@ -20,7 +20,7 @@ export default abstract class PhysicObject implements IPhysicsObject {
   debuger: Debuger;
 
   constructor(public _p5: P5, x: number, y: number) {
-    this._transform = new Transform(x, y);
+    this._transform = new Transform(x, y, this);
   }
   postUpdate() {
     this._components.forEach((component) => component.postUpdate());
